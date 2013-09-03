@@ -8,8 +8,10 @@
 #' @return NULL (Plot rendered)
 #' 
 #' @export
-makeAuthorCloud <- function(tab, splitter = ", ", auth_pat, addastopwords = NULL, ...) {
-
+makeAuthorCloud <- function(tab, splitter = ", ", auth_pat=NULL, 
+                            addastopwords = NULL, ...) {
+  stopifnot(!is.null(auth_pat))
+  auth_pat <- tolower(auth_pat)
   colIndex = which(names(tab) == "Authors")
   
   auths <- as.character(tab[,colIndex])
