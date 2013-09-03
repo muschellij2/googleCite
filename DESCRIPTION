@@ -1,0 +1,31 @@
+Package: googleCite
+Type: Package
+Title: Scrapes Google Citation pages and creates word clouds
+Version: 1.0
+Date: 2013-01-19
+Author: John Muschelli
+Maintainer: John Muschelli <jmuschel@jhsph.edu>
+Description: More about what it does (maybe more than one line)
+License: GPL
+LazyData: true
+Depends:
+    RColorBrewer,
+    XML,
+    wordcloud,
+    tm,
+    stringr,
+    tools
+Collate:
+    'gcSummary.R'
+    'getAuthor.R'
+    'getCitePerYear.R'
+    'getPapers.R'
+    'getPckg.R'
+    'googleCite.R'
+    'hindtime.R'
+    'makeAuthorCloud.R'
+    'makePaperCloud.R'
+    'searchCite.R'
+    'ss.R'
+    'trim.R'
+    'googleCite-package.R'

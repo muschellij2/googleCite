@@ -1,0 +1,8 @@
+export(gcSummary)
+export(getAuthor)
+export(getCitePerYear)
+export(getPapers)
+export(googleCite)
+export(makeAuthorCloud)
+export(makePaperCloud)
+export(searchCite)

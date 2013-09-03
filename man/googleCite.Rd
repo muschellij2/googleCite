@@ -1,0 +1,32 @@
+\name{googleCite}
+\alias{googleCite}
+\title{Workhorse function to extract information from google
+citations page}
+\usage{
+  googleCite(theurl, citations = FALSE, plotIt = FALSE,
+    pdfname = NULL, dlpdfs = FALSE, dlfolder = NULL, ...)
+}
+\arguments{
+  \item{theurl}{URL of the google Citation page to be
+  analyzed}
+
+  \item{citations}{(logical) Obsolete}
+
+  \item{plotIt}{Plot the Author/Paper wordcloud}
+
+  \item{pdfname}{(NULL) filename of plot (if plotIt =
+  TRUE)}
+
+  \item{dlpdfs}{(logical) Beta - download pdfs}
+
+  \item{dlfolder}{(file path) folder to download pdf
+  (default getwd())}
+
+  \item{...}{parameters to be passed to makeAuthorCloud,
+  makePaperCloud}
+}
+\description{
+  Workhorse function to extract information from google
+  citations page
+}
+
