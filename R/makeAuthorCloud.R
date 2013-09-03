@@ -9,7 +9,8 @@
 #' 
 #' @export
 makeAuthorCloud <- function(tab, splitter = ", ", auth_pat=NULL, 
-                            addastopwords = NULL, ...) {
+                            addastopwords = NULL, verbose=FALSE, ...) {
+  if (verbose) print(auth_pat)
   stopifnot(!is.null(auth_pat))
   auth_pat <- tolower(auth_pat)
   colIndex = which(names(tab) == "Authors")
