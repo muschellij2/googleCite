@@ -8,7 +8,7 @@
 #' @return NULL (Plot rendered)
 #' 
 #' @export
-makeAuthorCloud <- function(tab, splitter = " ", auth_pat, addastopwords = NULL, ...) {
+makeAuthorCloud <- function(tab, splitter = ", ", auth_pat, addastopwords = NULL, ...) {
 
   colIndex = which(names(tab) == "Authors")
   
