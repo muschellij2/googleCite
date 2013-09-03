@@ -173,6 +173,7 @@ function(theurl, citations=FALSE, plotIt = FALSE,
   }
   ln <- strsplit(author, " ")[[1]]
   ln <- paste(ln[2:length(ln)], collapse=" ")
+  print(ln)
  	auth_pat <- tolower(paste(substr(author, 1,1), ".* ", ln, sep=""))
   alldata$Is_First <- grepl(tolower(alldata$"First Author"), pattern=auth_pat)
   alldata$Is_Second <- grepl(tolower(alldata$"Second Author"),pattern=auth_pat)
