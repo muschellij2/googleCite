@@ -159,6 +159,8 @@ function(theurl, citations=FALSE, plotIt = FALSE,
   alldata$"Last Author" <- NA
   alldata$"N Authors" <- NA
   
+  alldata$Author <- str_trim(alldata$Author)
+  
   for(irow in 1:nrow(alldata)){
     tmp = strsplit(alldata$Author[irow], splitter)[[1]]
     if (length(tmp) ==  0) next;
