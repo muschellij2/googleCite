@@ -173,7 +173,10 @@ function(theurl, citations=FALSE, plotIt = FALSE,
   }
   ln <- strsplit(author, " ")[[1]]
   print(ln[length(ln)])
+  ln <- gsub("\\.", "", ln)
   ln <- paste(ln[2:length(ln)], collapse=" ")
+  ## may be add out 2013Sep3
+#   ln <- ln[length(ln)]
   print(ln)
  	auth_pat <- tolower(paste(substr(author, 1,1), ".* ", ln, sep=""))
   alldata$Is_First <- grepl(tolower(alldata$"First Author"), pattern=auth_pat)
