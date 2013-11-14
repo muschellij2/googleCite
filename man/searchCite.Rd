@@ -3,7 +3,7 @@
 \title{Google Citation Searcher}
 \usage{
   searchCite(Author, gCite = TRUE, verbose = TRUE,
-    ask = TRUE, ...)
+    ask = TRUE, addcrit = NULL, ...)
 }
 \arguments{
   \item{Author}{Author name separated by function}
