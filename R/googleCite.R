@@ -90,9 +90,10 @@ function(theurl, citations=FALSE, plotIt = FALSE,
 		
 	xx = do.call("rbind",x)
 	
-	y = data.frame(matrix(ncol = length(unique(xx$Year)),
-	nrow = length(x)))
-	names(y) = min(xx$Year):max(xx$Year) 
+	years <- min(xx$Year):max(xx$Year) 
+	y = data.frame(matrix(ncol = length(years),
+		nrow = length(x)))
+	names(y) = years
 	
 	minYear = min(xx$Year)
 	
@@ -138,14 +139,14 @@ function(theurl, citations=FALSE, plotIt = FALSE,
 		setwd(old_dir)
 	}
 	
-		
+
 #	allCitations = do.call("rbind",allCitations)
 	#allCitations = t(allCitations)
 	rownames(allCitations) = 1:nrow(allCitations)
 	allCitations = data.frame(allCitations, stringsAsFactors= F)
 	names(allCitations) <- cols
 	names(allCitations)[7] = "Citations"
-	allCitations$Citations = ss(allCitations$Citations, " by ", 2)
+	allCitations$Citations = sapply(strsplit(allCitations$Citations, " by "), function(x) x[2])
 	# y$Title <- allCitations$Title
 
   	splitter <- ", "

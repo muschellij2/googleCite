@@ -10,7 +10,7 @@
 #' searchCite("John Muschelli")
 #' @export
 
-searchCite <- function(Author, gCite=TRUE, verbose=TRUE, ask=TRUE, ...){
+searchCite <- function(Author, gCite=TRUE, verbose=TRUE, ask=TRUE, addcrit=NULL, ...){
   auth.names <- strsplit(Author, " ")[[1]]
   auth.names <- paste(auth.names[1:length(auth.names)], sep="", collapse="+")
   
@@ -53,6 +53,11 @@ searchCite <- function(Author, gCite=TRUE, verbose=TRUE, ask=TRUE, ...){
   if (nrow(dat) >= 1){
     ### if they have someone for a hit
     ##grab the first hit
+    nr <- nrow(dat)
+    if (nrow(dat) > 1 & !is.null(addcrit)){
+      dd <- dat[grepl(addcrit, dat$fullnames),]
+      if (nrow(dd) > 0) dat <- dd
+    }
     if (nrow(dat) == 1) {
     	choice <- 1
     	if (verbose) print(dat[1, c("fullnames", "src")])

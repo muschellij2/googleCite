@@ -22,6 +22,7 @@ function(webpage) {
                 x=names, fixed=TRUE)
 	}  
 	out <- names
+  
   return(out)
   
 }
