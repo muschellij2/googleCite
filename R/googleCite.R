@@ -20,6 +20,9 @@ function(theurl, citations=FALSE, plotIt = FALSE,
   alldata = list()
   author = getAuthor(paste(theurl,"&view_op=list_works&pagesize=100&cstart=",0,sep=""))
 	user.cpy <- getCitePerYear(theurl)
+  
+  
+  ipage = 0
   for (ipage in 0:100){
 	checker <- ipage * 100
 	page = paste(theurl, "&view_op=list_works&pagesize=100&cstart=", checker, sep="")
@@ -44,28 +47,48 @@ function(theurl, citations=FALSE, plotIt = FALSE,
 
 		cit = paste(thePath,zz, sep="/")
 		
-		x <- htmlTreeParse(cit, isURL=T, useInternalNodes=T, addFinalizer=T)
-		#print(zz)
-		tmp_all<- xpathSApply(x, "//div[@class='cit-dd']")
-		pname <- sapply(tmp_all, function(x)xmlChildren(x)$div)
-		pname <- pname[sapply(pname, function(x) !is.null(x))]
-		pname <- sapply(pname, function(x) xmlChildren(x)$a)
-		pname <- pname[sapply(pname, function(x) !is.null(x))]
-		pname <- sapply(pname, xmlGetAttr, "href")
-
-
-		tmp <- xpathSApply(x, "//div[@class='cit-dd']", xmlValue)
-
+		x <- htmlTreeParse(cit, isURL=TRUE, useInternalNodes=TRUE, addFinalizer=TRUE)
+		cpy <- getCitePerYear(x, url=FALSE, pagegraph = TRUE)
 		
-		tmp2<- xpathSApply(x, "//div[@class='cit-dt']", xmlValue)
-		if (length(tmp) != length(tmp2)) stop("Something off about parsing")
-		names(tmp) = tmp2
-		### use which for ordering
-		tmp = tmp[names(tmp) %in% cols]
+		
+		 #print(zz)
+		tmp_all<- xpathSApply(x, "//div[@id='gsc_ccl']")
+		title<- xpathSApply(x, "//div[@id='gsc_ccl']//div[@id = 'gsc_title']", xmlValue)
+		title<- xpathSApply(x, "//div[@id='gsc_ccl']//div[@id = 'gsc_title']", 
+                        xmlValue)
+		scl = xpathApply(x, 
+      paste0("//div[@id='gsc_ccl']//div[@class='gs_scl']"))
+    scl = lapply(scl, xmlChildren)
+		scl = lapply(scl, function(v){
+      vnames = names(v)
+      keep = vnames == "div"
+      v = v[keep]
+      classes = sapply(v, xmlGetAttr, "class")
+      keep_fields = which(classes %in% c('gsc_field'))
+      keep_values = which(classes %in% c('gsc_value'))
+      stopifnot(length(keep_fields) == length(keep_values))
+      fields = v[keep_fields]
+      values = v[keep_values]
+      fields = lapply(fields, xmlValue)
+      fields = unlist(lapply(fields, fillin))
+      values = lapply(values, function(vv) {
+        child.div = xmlChildren(vv)
+        val = xmlValue(child.div[[1]])
+        val = fillin(val)
+        return(val)
+      })
+      values = unlist(lapply(values, fillin))
+      names(values) = fields
+      values
+		})
+    scl = unlist(scl)
+    scl = c(Title=title, scl)
+
 		this.year <- as.numeric(format(Sys.time(), "%Y"))
-		year <- as.numeric(strsplit(tmp["Publication date"], split="/", fixed=TRUE)[[1]][1])
+		year <- as.numeric(strsplit(scl["Publication date"], split="/", fixed=TRUE)[[1]][1])
 		if (!is.na(year)) {
-      cpy <- getCitePerYear(x, year=year, url=FALSE, this.year=this.year)
+      cpy <- getCitePerYear(x, year=year, url=FALSE, this.year=this.year, 
+                            pagegraph = TRUE)
 		} else {
       cpy <- cbind(Year=this.year, Citations=0)
 		}
