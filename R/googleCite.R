@@ -54,7 +54,6 @@ function(theurl, citations=FALSE, plotIt = FALSE,
 		cit = paste(thePath,zz, sep="/")
 		
 		x <- htmlTreeParse(cit, isURL=TRUE, useInternalNodes=TRUE, addFinalizer=TRUE)
-		cpy <- getCitePerYear(x, url=FALSE, pagegraph = TRUE)
 		
 		
 		 #print(zz)
@@ -175,7 +174,7 @@ function(theurl, citations=FALSE, plotIt = FALSE,
 #	allCitations = do.call("rbind",allCitations)
 	#allCitations = t(allCitations)
 	rownames(allCitations) = 1:nrow(allCitations)
-	allCitations = data.frame(allCitations, stringsAsFactors= F)
+	allCitations = data.frame(allCitations, stringsAsFactors= FALSE)
 	names(allCitations) <- cols
 	names(allCitations)[7] = "Citations"
 	allCitations$Citations = sapply(strsplit(allCitations$Citations, " by "), function(x) x[2])
