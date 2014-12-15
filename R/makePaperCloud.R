@@ -12,7 +12,7 @@ makePaperCloud <- function(tab, addstopwords=NULL, ...) {
   
   corpus <- Corpus(DataframeSource(data.frame(tab[, colIndex])))
   corpus <- tm_map(corpus, removePunctuation)
-  corpus <- tm_map(corpus, tolower)
+  corpus <- tm_map(corpus, content_transformer(tolower))
   corpus <- tm_map(corpus, function(x) removeWords(x, stopwords("english")))
   if (!is.null(addstopwords)) corpus <- tm_map(corpus, function(x) 
     removeWords(x, addstopwords))
