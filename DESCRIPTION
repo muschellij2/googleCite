@@ -14,5 +14,4 @@ Imports:
     wordcloud,
     tm,
     stringr,
-    tools,
     plyr
