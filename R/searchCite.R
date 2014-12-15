@@ -3,6 +3,9 @@
 #' @description Search Google Citation for an author
 #' @param Author Author name separated by function
 #' @param gCite (logical) Return Google Cite output of choice
+#' @param verbose Verbose diagnostic printing
+#' @param ask If multiple authors are found, should a menu be given
+#' @param addcrit Added criteria to filter authors, such as institution
 #' @param ... additional parameters passed to \code{googleCite}
 #' @return googleCite output if gCite is TRUE, else return vector of 
 #' author list

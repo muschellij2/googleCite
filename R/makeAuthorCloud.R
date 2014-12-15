@@ -5,6 +5,8 @@
 #' @param splitter split author names (default " ")
 #' @param auth_pat Authors to drop
 #' @param addastopwords words to delete from wordcloud
+#' @param verbose Diagnostic message
+#' @param ... Not currently used
 #' @return NULL (Plot rendered)
 #' @import RColorBrewer
 #' @import tm

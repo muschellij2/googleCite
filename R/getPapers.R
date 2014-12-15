@@ -1,6 +1,6 @@
 #' @name getPapers
 #' @title Grab the papers from the Google Citations page
-#' 
+#' @param theurl URL to be parsed
 #' @export
 
 getPapers <-

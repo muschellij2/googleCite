@@ -11,6 +11,12 @@ searchCite(Author, gCite = TRUE, verbose = TRUE, ask = TRUE,
 
 \item{gCite}{(logical) Return Google Cite output of choice}
 
+\item{verbose}{Verbose diagnostic printing}
+
+\item{ask}{If multiple authors are found, should a menu be given}
+
+\item{addcrit}{Added criteria to filter authors, such as institution}
+
 \item{...}{additional parameters passed to \code{googleCite}}
 }
 \value{

@@ -14,6 +14,10 @@ makeAuthorCloud(tab, splitter = ", ", auth_pat = NULL,
 \item{auth_pat}{Authors to drop}
 
 \item{addastopwords}{words to delete from wordcloud}
+
+\item{verbose}{Diagnostic message}
+
+\item{...}{Not currently used}
 }
 \value{
 NULL (Plot rendered)

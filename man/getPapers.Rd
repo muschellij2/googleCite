@@ -5,6 +5,9 @@
 \usage{
 getPapers(theurl)
 }
+\arguments{
+\item{theurl}{URL to be parsed}
+}
 \description{
 Grab the papers from the Google Citations page
 }
