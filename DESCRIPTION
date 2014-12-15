@@ -1,8 +1,8 @@
 Package: googleCite
 Type: Package
 Title: Scrapes Google Citation pages and creates word clouds
-Version: 1.0
-Date: 2013-01-19
+Version: 1.1
+Date: 2014-12-15
 Author: John Muschelli
 Maintainer: John Muschelli <jmuschel@jhsph.edu>
 Description: More about what it does (maybe more than one line)
@@ -14,7 +14,8 @@ Depends:
     wordcloud,
     tm,
     stringr,
-    tools
+    tools,
+    plyr
 Collate:
     'gcSummary.R'
     'getAuthor.R'

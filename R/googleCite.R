@@ -8,12 +8,18 @@
 #' @param dlpdfs (logical) Beta - download pdfs
 #' @param dlfolder (file path) folder to download pdf (default getwd())
 #' @param ... parameters to be passed to makeAuthorCloud, makePaperCloud
+#' @import plyr
 #' @export
 
 googleCite <-
 function(theurl, citations=FALSE, plotIt = FALSE,
          pdfname=NULL, dlpdfs=FALSE, dlfolder=NULL, ...) {
 
+  fillin = function(x){
+    if (length(x) == 0) return(NA)
+    return(x)
+  }
+  
   theurl = strsplit(theurl,"&hl")[[1]][1]
   bibpage <- paste(theurl, "&view_op=export_citations", sep="")
 
@@ -83,6 +89,9 @@ function(theurl, citations=FALSE, plotIt = FALSE,
 		})
     scl = unlist(scl)
     scl = c(Title=title, scl)
+    
+    scl = rename(scl, c("Journal" = "Journal name"))
+    
 
 		this.year <- as.numeric(format(Sys.time(), "%Y"))
 		year <- as.numeric(strsplit(scl["Publication date"], split="/", fixed=TRUE)[[1]][1])
@@ -97,7 +106,7 @@ function(theurl, citations=FALSE, plotIt = FALSE,
 		paper.cpy[[irow]] <- cpy
 		
 		#### match so there are a known number of columns
-		allCitations[irow,] <- tmp[match(cols, names(tmp))]
+		allCitations[irow,] <- scl[match(cols, names(scl))]
 		# ret <- as.data.frame(ret, stringsAsFactors=FALSE)
 	}
 	# })

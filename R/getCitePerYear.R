@@ -7,7 +7,6 @@
 #' @param pagegraph Use this for graphs of an article
 #' @export
 
-
 getCitePerYear <-
 function(theurl, year=NULL, url=TRUE, 
          this.year=as.numeric(format(Sys.time(), "%Y")),
@@ -27,8 +26,9 @@ function(theurl, year=NULL, url=TRUE,
   adder = ""
   if (pagegraph) adder = "raph"
   topstr = paste0('//div[@id="gsc_g', adder, '"]')
-  if (pagegraph) topstr = ""
-  top_x = paste0(topstr, paste0('//div[@id = "gsc_g', adder , '_x"]'))
+  xstring = "x"
+  if (pagegraph) xstring = "bars"
+  top_x = paste0(topstr, paste0('//div[@id = "gsc_g', adder , '_', xstring, '"]'))
   
 	graph_x = xpathApply(y, paste0(top_x, '//span[@class="gsc_g_t"]'), xmlValue)
   graph_x = as.numeric(sapply(graph_x, fillin))
@@ -40,12 +40,6 @@ function(theurl, year=NULL, url=TRUE,
 # 	src = xpathSApply(y, "//td//img", xmlGetAttr, "src")
 # 	if (length(src) > 1) src <- src[grepl(pattern="chart?", x=src, fixed=TRUE)]
 # 	if (length(src) > 1) stop("Citation code has changed")
-# 	if (length(src) == 0) {
-# 		years <- year:this.year
-# 		nyears <- length(years)
-# 		return(matrix(cbind(Year=years, Citations=rep(0, nyears)), 
-#                   nrow=nyears, ncol=2))
-# 	}
 # 	tags <- strsplit(src, split="&")[[1]]
 # 	chxr <- tags[grepl(tags, pattern="chxr")] 
 # 	chd <- tags[grepl(tags, pattern="chd")]
@@ -63,5 +57,11 @@ function(theurl, year=NULL, url=TRUE,
 # 	####
 # 	hind <- cbind(Year = chxl, Citations=round(chd))
   hind = cbind(Year = graph_x, Citations = graph_y)
+  if (nrow(hind) == 0) {
+		years <- seq(year, to=this.year)
+		nyears <- length(years)
+		return(matrix(cbind(Year=years, Citations=rep(0, nyears)), 
+                  nrow=nyears, ncol=2))
+	}
 	return (hind)
 }
