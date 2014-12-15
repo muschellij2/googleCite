@@ -21,6 +21,7 @@ searchCite <- function(Author, gCite=TRUE, verbose=TRUE, ask=TRUE, addcrit=NULL,
   x <- x[[1]]  
 	y = htmlTreeParse(x, isURL=F, useInternalNodes=T, 
                     addFinalizer=T, asText = TRUE)
+#   names = gsc_1usr_name
 	names = xpathSApply(y, "//tr//a[@href]", xmlValue)
 	
 	z <- getNodeSet(y, "//tr//td[@valign='top']", 
