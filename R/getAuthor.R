@@ -15,7 +15,6 @@ function(webpage) {
 	names = xpathSApply(y, "//title", xmlValue)
 	names <- strsplit(names, "-")[[1]][1]
 	names <- str_trim(names)
-  data(hexdata)
 	for (icol in 1:ncol(hexdata)) {
 	  switcher <- hexdata[,icol]
 	  names <- gsub(pattern=switcher[1], replacement=switcher[2], 

@@ -8,6 +8,7 @@ Maintainer: John Muschelli <jmuschel@jhsph.edu>
 Description: More about what it does (maybe more than one line)
 License: GPL
 LazyData: true
+LazyLoad: yes
 Imports:
     RColorBrewer,
     XML,
