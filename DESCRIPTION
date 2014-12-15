@@ -16,17 +16,3 @@ Depends:
     stringr,
     tools,
     plyr
-Collate:
-    'gcSummary.R'
-    'getAuthor.R'
-    'getCitePerYear.R'
-    'getPapers.R'
-    'getPckg.R'
-    'googleCite.R'
-    'hindtime.R'
-    'makeAuthorCloud.R'
-    'makePaperCloud.R'
-    'searchCite.R'
-    'ss.R'
-    'trim.R'
-    'googleCite-package.R'
