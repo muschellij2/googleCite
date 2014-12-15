@@ -6,6 +6,10 @@
 #' @param auth_pat Authors to drop
 #' @param addastopwords words to delete from wordcloud
 #' @return NULL (Plot rendered)
+#' @import RColorBrewer
+#' @import tm
+#' @import wordcloud
+#' @import stringr
 #' 
 #' @export
 makeAuthorCloud <- function(tab, splitter = ", ", auth_pat=NULL, 

@@ -9,6 +9,7 @@
 #' @param dlfolder (file path) folder to download pdf (default getwd())
 #' @param ... parameters to be passed to makeAuthorCloud, makePaperCloud
 #' @import plyr
+#' @import XML
 #' @export
 
 googleCite <-
