@@ -16,3 +16,4 @@ Imports:
     tm,
     stringr,
     plyr
+RoxygenNote: 5.0.1

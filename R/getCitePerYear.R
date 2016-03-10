@@ -46,7 +46,7 @@ function(theurl, year=NULL, url=TRUE,
 # 	chxl <- tags[grepl(tags, pattern="chxl")]
 # 	chd <- sub(pattern="chd=t:", replacement = "", x=chd, fixed=TRUE)
 # 	chxl <- sub(pattern="chxl=0:|", replacement = "", x=chxl, fixed=TRUE)
-# 	## chxr goes 1 (axis), 0 (start), max_num of citatations (end), 
+# 	## chxr goes 1 (axis), 0 (start), max_num of citations (end), 
 #   ## and how many units per tick (usually max numb)
 # 	chxr <- sub(pattern="chxr=1,0,", replacement = "", x=chxr, fixed=TRUE)
 # 	chd <- as.numeric(strsplit(chd, split=",")[[1]])

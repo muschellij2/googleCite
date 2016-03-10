@@ -243,5 +243,7 @@ function(theurl, citations=FALSE, plotIt = FALSE,
 	alldata$Year <- as.numeric(sapply(strsplit(alldata[, "Publication date"], split="/", fixed=TRUE), function(x) return(x[1])))
  
   alldata <- cbind(alldata, y)
+  attr(alldata, "auth_pat") = auth_pat
+  attr(alldata, "splitter") = splitter
   return(alldata)
 }
