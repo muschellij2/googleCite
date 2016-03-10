@@ -23,4 +23,13 @@ googleCite(theurl, citations = FALSE, plotIt = FALSE, pdfname = NULL,
 
 \item{...}{parameters to be passed to makeAuthorCloud, makePaperCloud}
 }
+\value{
+A \code{data.frame} of the citations per year, authors names, 
+and indicators of authorship with attributes of \code{auth_pat} and 
+\code{splitter} for word clouds to be plotted later.
+}
+\description{
+This function takes in the url from a person's Google Citation
+page and returns a data.frame of all the information from that page
+}
 

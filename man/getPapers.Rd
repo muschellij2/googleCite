@@ -9,4 +9,7 @@ getPapers(theurl)
 \arguments{
 \item{theurl}{URL to be parsed}
 }
+\description{
+Exract papers from a Google Citations Page
+}
 

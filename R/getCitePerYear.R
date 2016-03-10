@@ -1,12 +1,12 @@
 #' @name getCitePerYear
 #' @title Get citation and h indices per year
+#' @description Making citation indices for each year
 #' @param theurl url from Google Citation or htmlTreeParse if (url=FALSE)
 #' @param year year to start from (default NULL)
 #' @param url (logical) is theurl a url or htmlTree
 #' @param this.year The end year (default this year)
 #' @param pagegraph Use this for graphs of an article
 #' @export
-
 getCitePerYear <-
 function(theurl, year=NULL, url=TRUE, 
          this.year=as.numeric(format(Sys.time(), "%Y")),

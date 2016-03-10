@@ -12,4 +12,7 @@ getAuthor(webpage)
 \value{
 name of authors
 }
+\description{
+Return the author from a specific Google Citation webpage
+}
 

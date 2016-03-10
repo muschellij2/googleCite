@@ -28,6 +28,8 @@ author list
 Search Google Citation for an author
 }
 \examples{
+\dontrun{
 searchCite("John Muschelli")
+}
 }
 

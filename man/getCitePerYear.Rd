@@ -18,4 +18,7 @@ getCitePerYear(theurl, year = NULL, url = TRUE,
 
 \item{pagegraph}{Use this for graphs of an article}
 }
+\description{
+Making citation indices for each year
+}
 

@@ -12,4 +12,7 @@ gcSummary(alldata)
 \value{
 Printout of outcomes
 }
+\description{
+Gets a summary from google citations page
+}
 

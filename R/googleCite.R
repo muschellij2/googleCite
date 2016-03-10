@@ -1,6 +1,8 @@
 #' @name googleCite
 #' @title Workhorse function to extract information from google
 #' citations page
+#' @description This function takes in the url from a person's Google Citation
+#' page and returns a data.frame of all the information from that page
 #' @param theurl URL of the google Citation page to be analyzed
 #' @param citations (logical) Obsolete
 #' @param plotIt Plot the Author/Paper wordcloud
@@ -11,7 +13,9 @@
 #' @import plyr
 #' @import XML
 #' @export
-
+#' @return A \code{data.frame} of the citations per year, authors names, 
+#' and indicators of authorship with attributes of \code{auth_pat} and 
+#' \code{splitter} for word clouds to be plotted later.
 googleCite <-
 function(theurl, citations=FALSE, plotIt = FALSE,
          pdfname=NULL, dlpdfs=FALSE, dlfolder=NULL, ...) {

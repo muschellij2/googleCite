@@ -1,9 +1,9 @@
 #' @name gcSummary 
 #' @title Google Citation summary
+#' @description Gets a summary from google citations page
 #' @param alldata googleCite output
 #' @return Printout of outcomes
 #' @export
-
 gcSummary <-
 function(alldata){
   citations = as.numeric(alldata$Citations)

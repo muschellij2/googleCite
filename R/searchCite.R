@@ -10,7 +10,9 @@
 #' @return googleCite output if gCite is TRUE, else return vector of 
 #' author list
 #' @examples
+#' \dontrun{
 #' searchCite("John Muschelli")
+#' }
 #' @export
 
 searchCite <- function(Author, gCite=TRUE, verbose=TRUE, ask=TRUE, addcrit=NULL, ...){
