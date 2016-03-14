@@ -6,12 +6,12 @@
 #' @export
 getAuthor <-
 function(webpage) {
-	old.locale <- Sys.getlocale()
-	Sys.setlocale(locale="C")
+	# old.locale <- Sys.getlocale()
+	Sys.setlocale(category = "LC_ALL", locale = "C")
 	old.warn = options()$warn
 	options(warn = -1)	
 	on.exit({
-	  Sys.setlocale(old.locale)
+	  Sys.setlocale(locale = "")
 	  options(warn = old.warn)
 	})
 
