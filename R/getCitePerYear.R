@@ -26,37 +26,63 @@ function(theurl, year=NULL, url=TRUE,
   adder = ""
   if (pagegraph) adder = "raph"
   topstr = paste0('//div[@id="gsc_g', adder, '"]')
-  xstring = "x"
-  if (pagegraph) xstring = "bars"
-  top_x = paste0(topstr, paste0('//div[@id = "gsc_g', adder , '_', xstring, '"]'))
+  nodes = getNodeSet(y, path = topstr)
   
-	graph_x = xpathApply(y, paste0(top_x, '//span[@class="gsc_g_t"]'), xmlValue)
-  graph_x = as.numeric(sapply(graph_x, fillin))
-  
-	top_y = paste0(topstr, paste0('//div[@id = "gsc_g', adder, '_bars"]'))
-	graph_y = xpathApply(y, paste0(top_y, '//span[@class="gsc_g_al"]'), xmlValue)
-	graph_y = as.numeric(sapply(graph_y, fillin))
+  if (length(nodes) == 0) {
+      years <- seq(year, to=this.year)
+      nyears <- length(years)
+      return(matrix(cbind(Year=years, 
+                          Citations=rep(NA, nyears)), 
+                    nrow=nyears, ncol=2))
+    
+  } 
+  node = nodes[[1]]
+  node = xpathApply(node, '//div[@id="gsc_graph_bars"]')[[1]]
+  graph_y = getNodeSet(node, '//a[@class="gsc_g_a"]')
+  yearvals = lapply(graph_y, function(r){
+    href = xmlGetAttr(r, "href")
+    href = strsplit(href, "&")[[1]]
+    tryer = "lo"
+    get_year = function(tryer, href){
+      href = grep(paste0("as_y", tryer, "="), href, value = TRUE)
+      href = strsplit(href, "=")
+      href = sapply(href, function(x) {
+        if (length(x) > 1) {
+          return(as.numeric(x[2]))
+        } else {
+          return(NA)
+        }
+      })
+    }
+    year = get_year(tryer = "lo", href)
+    year = year[!is.na(year)]
+    if (length(year) == 0) {
+      year = get_year(tryer = "hi", href)
+      year = year[!is.na(year)]      
+    }
+    if (length(year) == 0) {
+      year = NA
+    }
+    value = fillin(xmlValue(r))
+    
+    c(Year = year, Citations = as.numeric(value))
+  })
+  hind = do.call("rbind", yearvals)
+  #   xstring = "x"
+#   if (pagegraph) xstring = "bars"
+#   top_x = paste0(topstr, paste0('//div[@id = "gsc_g', adder , '_', xstring, '"]'))
 #   
-# 	src = xpathSApply(y, "//td//img", xmlGetAttr, "src")
-# 	if (length(src) > 1) src <- src[grepl(pattern="chart?", x=src, fixed=TRUE)]
-# 	if (length(src) > 1) stop("Citation code has changed")
-# 	tags <- strsplit(src, split="&")[[1]]
-# 	chxr <- tags[grepl(tags, pattern="chxr")] 
-# 	chd <- tags[grepl(tags, pattern="chd")]
-# 	chxl <- tags[grepl(tags, pattern="chxl")]
-# 	chd <- sub(pattern="chd=t:", replacement = "", x=chd, fixed=TRUE)
-# 	chxl <- sub(pattern="chxl=0:|", replacement = "", x=chxl, fixed=TRUE)
-# 	## chxr goes 1 (axis), 0 (start), max_num of citations (end), 
-#   ## and how many units per tick (usually max numb)
-# 	chxr <- sub(pattern="chxr=1,0,", replacement = "", x=chxr, fixed=TRUE)
-# 	chd <- as.numeric(strsplit(chd, split=",")[[1]])
-# 	chxl <- as.numeric(strsplit(chxl, split="|", fixed=TRUE)[[1]])
-# 	chxl <- min(chxl, na.rm=TRUE):max(chxl, na.rm=TRUE)
-# 	chxr <- as.numeric(strsplit(chxr, split=",")[[1]][1])
-# 	chd <- chd / 100 * chxr
+# 	graph_x = xpathApply(y, paste0(top_x, '//span[@class="gsc_g_t"]'), xmlValue)
+#   graph_x = as.numeric(sapply(graph_x, fillin))
+#   
+# 	top_y = paste0(topstr, paste0('//div[@id = "gsc_g', adder, '_bars"]'))
+# 	graph_y = xpathApply(y, paste0(top_y, '//span[@class="gsc_g_al"]'), xmlValue)
+# 	graph_y = as.numeric(sapply(graph_y, fillin))
+#   
+
 # 	####
 # 	hind <- cbind(Year = chxl, Citations=round(chd))
-  hind = cbind(Year = graph_x, Citations = graph_y)
+  # hind = cbind(Year = graph_x, Citations = graph_y)
   if (nrow(hind) == 0) {
 		years <- seq(year, to=this.year)
 		nyears <- length(years)

@@ -49,17 +49,32 @@ function(theurl, citations=FALSE, plotIt = FALSE,
 
 	out=list()
 
-	cols <- c("Title","Authors","Publication date", "Journal name", "Volume","Issue","Total citations")
+	cols <- c("Title","Authors","Publication date", 
+	          "Journal name", "Volume","Issue","Total citations")
 	npap <- length(allPapers)
 	allCitations <- matrix(NA, nrow=npap, ncol=length(cols))
 	paper.cpy <- vector("list", length=npap)
+	
+	zz <- paste(thePath, allPapers, sep = "/")
+	destfiles = sapply(allPapers, function(x) {
+	  tempfile(fileext = ".html")
+	})
+	dls = mapply(function(x, y){
+	  download.file(x, y, quiet = TRUE)
+	}, zz, destfiles)
+	
+# 	cit = paste(thePath,zz, sep="/")
+	pb = txtProgressBar(min = 0, max = npap, style = 3)
 	for (irow in 1:npap){
-		zz <- allPapers[irow]
-
-		cit = paste(thePath,zz, sep="/")
-		
-		x <- htmlTreeParse(cit, isURL=TRUE, useInternalNodes=TRUE, addFinalizer=TRUE)
-		
+# 		zz <- allPapers[irow]
+# 
+# 		cit = paste(thePath,zz, sep="/")
+# 		
+# 		x <- htmlTreeParse(cit, isURL=TRUE, 
+# 		                   useInternalNodes=TRUE, addFinalizer=TRUE)
+	  cit = destfiles[irow]
+	  x <- htmlTreeParse(cit, isURL=FALSE, 
+	                     useInternalNodes=TRUE, addFinalizer=TRUE)		
 		
 		 #print(zz)
 		tmp_all<- xpathSApply(x, "//div[@id='gsc_ccl']")
@@ -94,7 +109,7 @@ function(theurl, citations=FALSE, plotIt = FALSE,
     scl = unlist(scl)
     scl = c(Title=title, scl)
     
-    scl = rename(scl, c("Journal" = "Journal name"))
+    scl = plyr::rename(scl, c("Journal" = "Journal name"), warn_missing = FALSE)
     
 
 		this.year <- as.numeric(format(Sys.time(), "%Y"))
@@ -112,7 +127,9 @@ function(theurl, citations=FALSE, plotIt = FALSE,
 		#### match so there are a known number of columns
 		allCitations[irow,] <- scl[match(cols, names(scl))]
 		# ret <- as.data.frame(ret, stringsAsFactors=FALSE)
+		setTxtProgressBar(pb, value = irow)
 	}
+	close(pb)
 	# })
 
 	x=paper.cpy
